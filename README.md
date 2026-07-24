@@ -29,8 +29,7 @@ The processed data is then used to generate business insights and analytical das
 
 ---
 
-## Project Architecture
-<h2>Project Architecture</h2>
+##<h2>Project Architecture</h2>
 
 <table>
 <tr>
