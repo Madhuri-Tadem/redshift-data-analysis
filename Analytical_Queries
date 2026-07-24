@@ -1,0 +1,98 @@
+-- =========================================================
+-- 1. TOP 10 CUSTOMERS BY REVENUE
+-- =========================================================
+
+SELECT
+    customer_id,
+    first_name,
+    last_name,
+    total_orders,
+    total_sales,
+    average_order_value
+FROM mart.customer_metrics
+ORDER BY total_sales DESC
+LIMIT 10;
+
+-- =========================================================
+-- 2. REVENUE BY STATE
+-- =========================================================
+
+SELECT
+    state,
+    SUM(total_sales) AS revenue
+FROM mart.customer_metrics
+GROUP BY state
+ORDER BY revenue DESC;
+
+-- =========================================================
+-- 3. AVERAGE ORDER VALUE BY CUSTOMER
+-- =========================================================
+
+SELECT
+    customer_id,
+    first_name,
+    last_name,
+    total_orders,
+    average_order_value
+FROM mart.customer_metrics
+WHERE total_orders > 0
+ORDER BY average_order_value DESC;
+
+-- =========================================================
+-- 4. CUSTOMERS WITH NO VALID EMAIL
+-- =========================================================
+
+SELECT
+    customer_id,
+    first_name,
+    last_name,
+    email
+FROM mart.cleaned_customers
+WHERE email = 'unknown@example.com';
+
+-- =========================================================
+-- 5. MONTHLY SALES TREND
+-- =========================================================
+
+SELECT
+    DATE_TRUNC('month', order_date) AS sales_month,
+    SUM(order_amount) AS revenue,
+    COUNT(*) AS total_orders
+FROM mart.cleaned_orders
+GROUP BY DATE_TRUNC('month', order_date)
+ORDER BY sales_month;
+
+-- =========================================================
+-- 6. DUPLICATE DETECTION REPORT
+-- =========================================================
+
+SELECT
+    'Duplicate Customers' AS issue_type,
+    COUNT(*) AS duplicate_records
+FROM (
+    SELECT customer_id
+    FROM staging.stg_customers
+    GROUP BY customer_id
+    HAVING COUNT(*) > 1
+) c
+
+UNION ALL
+
+SELECT
+    'Duplicate Orders' AS issue_type,
+    COUNT(*) AS duplicate_records
+FROM (
+    SELECT order_id
+    FROM staging.stg_orders
+    GROUP BY order_id
+    HAVING COUNT(*) > 1
+) o;
+
+-- =========================================================
+-- 7. ORDERS WITH ZERO AMOUNT AFTER CLEANSING
+-- =========================================================
+
+SELECT
+    COUNT(*) AS zero_amount_orders
+FROM mart.cleaned_orders
+WHERE order_amount = 0;
