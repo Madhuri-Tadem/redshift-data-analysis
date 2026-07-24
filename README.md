@@ -30,55 +30,126 @@ The processed data is then used to generate business insights and analytical das
 ---
 
 ## Project Architecture
+<h2>Project Architecture</h2>
 
-Raw CSV Files
-│
-├── customers_1000.csv
-└── orders_5000.csv
-│
-▼
-Amazon S3
-│
-▼
-Redshift COPY Command
-│
-▼
-Bronze Layer – Staging
-│
-├── staging.stg_customers
-└── staging.stg_orders
-│
-▼
-Data Quality Checks
-│
-├── Duplicate Customer Detection
-├── Duplicate Order Detection
-├── Missing Email Detection
-├── Missing State Detection
-└── Missing Order Amount Detection
-│
-▼
-Silver Layer – Cleaned Data
-│
-├── mart.cleaned_customers
-└── mart.cleaned_orders
-│
-▼
-Gold Layer – Customer Metrics
-│
-└── mart.customer_metrics
-│
-├── Total Orders
-├── Total Sales
-└── Average Order Value
-│
-▼
-Business Analytics
-│
-▼
-Dashboards
+<table>
+<tr>
+<td align="center">
 
----
+<b>Raw CSV Files</b><br><br>
+📄 customers_1000.csv<br>
+📄 orders_5000.csv
+
+</td>
+</tr>
+
+<tr>
+<td align="center">⬇️</td>
+</tr>
+
+<tr>
+<td align="center">
+
+<b>Amazon S3</b><br>
+Raw Data Storage
+
+</td>
+</tr>
+
+<tr>
+<td align="center">⬇️<br><b>Redshift COPY Command</b></td>
+</tr>
+
+<tr>
+<td align="center">
+
+<b>Bronze Layer – Staging</b><br><br>
+📊 staging.stg_customers<br>
+📊 staging.stg_orders
+
+</td>
+</tr>
+
+<tr>
+<td align="center">⬇️</td>
+</tr>
+
+<tr>
+<td align="center">
+
+<b>Data Quality Checks</b><br><br>
+✔ Duplicate Customer Detection<br>
+✔ Duplicate Order Detection<br>
+✔ Missing Email Detection<br>
+✔ Missing State Detection<br>
+✔ Missing Order Amount Detection
+
+</td>
+</tr>
+
+<tr>
+<td align="center">⬇️</td>
+</tr>
+
+<tr>
+<td align="center">
+
+<b>Silver Layer – Cleaned Data</b><br><br>
+📊 mart.cleaned_customers<br>
+📊 mart.cleaned_orders
+
+</td>
+</tr>
+
+<tr>
+<td align="center">⬇️</td>
+</tr>
+
+<tr>
+<td align="center">
+
+<b>Gold Layer – Customer Metrics</b><br><br>
+📊 mart.customer_metrics<br><br>
+• Total Orders<br>
+• Total Sales<br>
+• Average Order Value
+
+</td>
+</tr>
+
+<tr>
+<td align="center">⬇️</td>
+</tr>
+
+<tr>
+<td align="center">
+
+<b>Business Analytics</b><br><br>
+📈 Top 10 Customers by Revenue<br>
+📊 Revenue by State<br>
+📊 Average Order Value by Customer<br>
+📧 Customers with No Valid Email<br>
+📈 Monthly Sales Trend<br>
+🔍 Duplicate Detection Report<br>
+💰 Orders with Zero Amount
+
+</td>
+</tr>
+
+<tr>
+<td align="center">⬇️</td>
+</tr>
+
+<tr>
+<td align="center">
+
+<b>Dashboards</b><br><br>
+📊 Business Insights & Data Visualization
+
+</td>
+</tr>
+
+</table>
 
 ## Dataset
 
